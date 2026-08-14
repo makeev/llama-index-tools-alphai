@@ -1,0 +1,98 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llama-index-tools-alphai"
+version = "0.1.0"
+description = "LlamaIndex tool spec for AlphaAI: AI-scored financial news and SEC Form 4 insider events."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10,<4.0"
+authors = [{ name = "AlphaAI", email = "support@alphai.io" }]
+keywords = [
+    "llama-index",
+    "llamaindex",
+    "alphai",
+    "financial-news",
+    "stocks",
+    "sec",
+    "insider",
+    "rag",
+    "llm",
+    "agents",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "llama-index-core>=0.13.0,<0.16",
+    "alphai-sdk>=0.4.2,<1",
+]
+
+[project.urls]
+Homepage = "https://alphai.io"
+Documentation = "https://alphai.io/developers"
+Repository = "https://github.com/makeev/llama-index-tools-alphai"
+"API Reference" = "https://api.alphai.io/api/schema/"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    # Capped on purpose: CI runs `ruff format --check .`, and a ruff minor can
+    # widen what "formatted" means (0.16 started formatting Markdown code blocks).
+    # Bump deliberately, reformat in the same commit.
+    "ruff>=0.6,<0.17",
+    "mypy>=1.10",
+]
+
+# The llama_index/ tree is a PEP 420 namespace package mounted into
+# llama_index.tools — no __init__.py above the alphai/ leaf, same as the
+# packages in run-llama/llama_index/llama-index-integrations/tools/.
+[tool.hatch.build.targets.wheel]
+include = ["llama_index/"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/llama_index", "/tests", "/README.md", "/LICENSE", "/CHANGELOG.md"]
+
+[tool.llamahub]
+contains_example = true
+import_path = "llama_index.tools.alphai"
+
+[tool.llamahub.class_authors]
+AlphaAIToolSpec = "makeev"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["llama_index", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PIE", "RUF"]
+ignore = ["B008"]
+
+# python_version is 3.12 (not our 3.10 floor) because numpy 2.x stubs use
+# PEP 695 `type` statements, which mypy refuses to parse under 3.10/3.11.
+# 3.10 compatibility is held by ruff (target-version py310) and the CI matrix.
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["llama_index"]
+namespace_packages = true
+explicit_package_bases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
