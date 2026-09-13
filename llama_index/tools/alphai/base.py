@@ -1,6 +1,6 @@
-"""AlphaAI tool spec: AI-scored financial news and SEC Form 4 insider events.
+"""AlphAI tool spec: AI-scored financial news and SEC Form 4 insider events.
 
-Every article on the AlphaAI feed already carries an AI enrichment layer
+Every article on the AlphAI feed already carries an AI enrichment layer
 (per-ticker impact analysis, a category, a 1-10 relevance score), so the tools
 here do no scoring of their own — they fetch, filter, and map articles into
 :class:`llama_index.core.schema.Document` objects with the enrichment exposed
@@ -73,9 +73,9 @@ def _to_document(article: RichNewsArticle) -> Document:
 
 
 class AlphaAIToolSpec(BaseToolSpec):
-    """Tools over the AlphaAI financial-news API (https://alphai.io).
+    """Tools over the AlphAI financial-news API (https://alphai.io).
 
-    Requires an AlphaAI API key (free tier available, no card) — see
+    Requires an AlphAI API key (free tier available, no card) — see
     https://alphai.io/developers. The key is read from the ``ALPHAI_API_KEY``
     environment variable unless passed explicitly.
 
@@ -98,7 +98,7 @@ class AlphaAIToolSpec(BaseToolSpec):
     def __init__(self, api_key: str | None = None) -> None:
         """
         Args:
-            api_key: AlphaAI API key. Defaults to the ``ALPHAI_API_KEY``
+            api_key: AlphAI API key. Defaults to the ``ALPHAI_API_KEY``
                 environment variable.
         """
         self._api_key = api_key
@@ -121,7 +121,7 @@ class AlphaAIToolSpec(BaseToolSpec):
         min_relevance: int | None = None,
         max_results: int = DEFAULT_MAX_RESULTS,
     ) -> list[Document]:
-        """Fetch recent financial news from AlphaAI's AI-scored feed, newest first.
+        """Fetch recent financial news from AlphAI's AI-scored feed, newest first.
 
         Every article is tagged with tickers, a category, and a 1-10
         market-relevance score. Use it for questions about recent news on a

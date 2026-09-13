@@ -1,10 +1,10 @@
 # llama-index-tools-alphai
 
-LlamaIndex tool spec for [AlphaAI](https://alphai.io) — AI-scored,
+LlamaIndex tool spec for [AlphAI](https://alphai.io) — AI-scored,
 ticker-linked financial news and SEC Form 4 insider events, built for AI
 agents and trading bots.
 
-Every article on the AlphaAI feed is enriched before you see it: per-ticker
+Every article on the AlphAI feed is enriched before you see it: per-ticker
 impact analysis, one of 14 categories, and a 1-10 market-relevance score. The
 tools here fetch and filter that feed — no scraping, no scoring of your own.
 
@@ -89,7 +89,7 @@ plus summary, everything else rides in `metadata`.
 
 ## Rate limits
 
-Limits are per AlphaAI account, two-layer (per-minute burst + per-day volume):
+Limits are per AlphAI account, two-layer (per-minute burst + per-day volume):
 Free 20/min · 100/day, Basic 60/min · 10,000/day, Pro 150/min · 100,000/day.
 The underlying [alphai-sdk](https://pypi.org/project/alphai-sdk/) retries 429s
 with backoff automatically.
@@ -100,5 +100,5 @@ with backoff automatically.
 - API reference: <https://api.alphai.io/api/schema/>
 - MCP server (same feed, for MCP-speaking agents): <https://alphai.io/mcp>
 
-AlphaAI output is AI-generated financial information for research, not
+AlphAI output is AI-generated financial information for research, not
 investment advice — see [alphai.io/terms](https://alphai.io/terms).
